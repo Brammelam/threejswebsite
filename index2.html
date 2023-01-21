@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Borm Server</title>
+    <style>
+      #container{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 200px;
+        height: 100%;
+        line-height: 5em;
+        padding: 50px;
+        background-color: #000f0f;
+
+      }
+      #container:hover{
+        background-color: #000000;
+
+      }
+
+      a{
+        color: white;
+
+        text-decoration: none;
+        font-size: 20px;
+        padding: 20px;
+        transition: all 0.3s ease;
+      }
+      a:hover{
+        color: red;
+        font-size: 23px;
+        text-shadow: 0 0 20px red;
+      }
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+  <div id="container">
+  <p>
+
+    <a href="index.html">Home</a><br>
+    <a href="https://brammelam.github.io/tiny-racers-web">Tiny Racer</a><br>
+    <a href="https://brammelam.github.io/index.html">Example 1</a>
+  </p>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.119.1/build/three.min.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.121.1/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.121.1/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type = "module">
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+      // set up scene and camera
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 10;
+      // create a renderer
+      var renderer = new THREE.WebGLRenderer({ antialias: true });
+      // set the size of the renderer and add it to the DOM
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      var angle = 0;
+      var speed = 0.01;
+      var scaleSpeed = 0.001;
+      // import controls
+      var controls = new OrbitControls( camera, renderer.domElement );
+      controls.keyPanSpeed = 100;
+      controls.enableZoom = true; // allows for zoom in/out with the mouse scroll
+      controls.enablePan = true; // allows for panning the camera with the right mouse button
+      controls.enableDamping = true;
+      //controls.maxPolarAngle = Math.PI/1.2;
+      //controls.maxAzimuthAngle = Math.PI/1.5;
+      //controls.minPolarAngle = Math.PI/30;
+      //controls.minAzimuthAngle = Math.PI/100;
+      controls.maxDistance = 120;
+      // controls.minDistance = 10;
+      controls.touches = {
+        ONE: THREE.TOUCH.ROTATE,
+        TWO: THREE.TOUCH.DOLLY_PAN
+      }
+      //create a smaller blue ball
+      var centerGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+      var centerMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff,shading: THREE.SmoothShading });
+      var centerBall = new THREE.Mesh(centerGeometry, centerMaterial);
+
+      //create a pivot point for the center ball
+      var pivot = new THREE.Object3D();
+      //pivot.add(centerBall);
+      scene.add(pivot);
+
+      //create a pivot point for the red ball
+      var redPivot = new THREE.Object3D();
+      redPivot.position.x = 3;
+      pivot.add(redPivot);
+
+      //create the red ball and add it to the red pivot point
+      var geometry = new THREE.SphereGeometry(1, 32, 32);
+      var material = new THREE.MeshStandardMaterial({ color: 0xff0000, shading: THREE.SmoothShading });
+      var ball = new THREE.Mesh(geometry, material);
+      redPivot.add(ball);
+      // create a point light
+      var light = new THREE.PointLight(0xffffff);
+      light.position.set(0, 0, -20);
+
+      scene.add(light);
+      // track mouse position
+      document.addEventListener("mousemove", function(event) {
+        light.position.x = (event.clientX / window.innerWidth) * 2 - 1;
+        light.position.y = - (event.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      window.addEventListener("resize", function() {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      });
+
+      // create an array to store the dots
+      var dots = [];
+      var dotCount = 200;
+
+      // create the dots and add them to the scene
+      for (var i = 0; i < dotCount; i++) {
+          var dotGeometry = new THREE.SphereGeometry(0.05, 3, 3);
+          var dotMaterial = new THREE.MeshStandardMaterial({color: 0xffffff,flatShading: true});
+          var dot = new THREE.Mesh(dotGeometry, dotMaterial);
+          dot.position.z = Math.random() * 40 - 20;
+          dot.position.x = Math.random() * 50-25;
+          dot.position.y = Math.random() * 50-25;
+          dot.speed = Math.random() * 0.01;
+          dots.push(dot);
+          scene.add(dot);
+      }
+      var loader = new THREE.FontLoader();
+      var textMesh;
+      loader.load( 'https://cdn.jsdelivr.net/npm/three@0.119.1/examples/fonts/helvetiker_regular.typeface.json', function ( font ) {
+        var textGeometry = new THREE.TextGeometry( "Borm server v2", {
+            font: font,
+            size: 1,
+            height: 0.1
+        } );
+        var textMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, shading: THREE.SmoothShading });
+        textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+        // Position the text mesh where the blue ball used to be
+        textMesh.position.x = centerBall.position.x;
+        textMesh.position.y = centerBall.position.y;
+        textMesh.position.z = centerBall.position.z;
+        textMesh.rotation.x = Math.PI / 16;
+        textMesh.rotation.y = Math.PI / 8;
+        pivot.add(textMesh);
+    } );
+
+      function update() {
+          for (var i = 0; i < dotCount; i++) {
+              dots[i].position.z += dots[i].speed;
+              if (dots[i].position.z > 20) {
+                  dots[i].position.z = -20;
+              }
+          }
+      }
+
+      // animate the ball
+      function animate() {
+        update();
+        requestAnimationFrame(animate);
+        angle += speed;
+        redPivot.position.x = 2 * Math.sin(angle);
+        redPivot.position.y = 4 * Math.sin(angle);
+        redPivot.position.z = 2 * Math.cos(angle);
+        if (light.position.z < 10){
+            light.position.z +=0.5;
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+  </script>
+</body>
+</html>
