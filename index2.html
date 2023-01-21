@@ -175,6 +175,7 @@
       function animate() {
         update();
         requestAnimationFrame(animate);
+        controls.update();
         angle += speed;
         redPivot.position.x = 2 * Math.sin(angle);
         redPivot.position.y = 4 * Math.sin(angle);
