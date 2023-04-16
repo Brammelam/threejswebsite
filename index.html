@@ -2,13 +2,30 @@
 <html>
 <head>
     <title>Borm server</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+    @media screen and (max-width: 1918px) {
+      #container{
+        width: 100px;
+        flex-direction: column;
+      }
+      body {
+        font-size: 14px;
+      }
+      a {
+        font-size: 12px;
+      }
+      a:hover {
+        font-size: 14px;
+      }
+    }
 
+</style>
 </head>
 <body>
 
@@ -33,7 +50,7 @@
       }
     }
   </script>
-
+  <div id="botpress-webchat"></div>
   <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
   <script>
     window.botpressWebChat.init({
@@ -43,10 +60,10 @@
         "clientId": "c67e4252-0ccc-4c57-ba96-c84e360324d8",
         "botName": "CleverBot",
         "avatarUrl": "https://i.imgur.com/dR1ZDMK.png",
-        "stylesheet": "styles.css",
         "botConversationDescription": "I know everything",
-        "showBotInfoPage": true
-
+        "showBotInfoPage": true,
+        "containerWidth": "100%25",
+        "layoutWidth": "100%25"
     });
   </script>
 
