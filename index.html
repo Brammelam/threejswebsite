@@ -2,73 +2,16 @@
 <html>
 <head>
     <title>Borm server</title>
-    <style>
-      #container{
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 200px;
-        height: 100%;
-        line-height: 5em;
-        text-decoration-color: green;
-        background-color: rgba(255,255,255,0.2);
-        z-index: 2;
-        font-size: 40px;
 
-      }
-      #container:hover{
-        transition: all 0.5s ease;
-        background-color: rgba(255,255,255,0.25);
+    <link rel="stylesheet" href="./style.css">
 
-      }
-      #top-bar{
-        position: fixed;
-        left:0;
-        top:0;
-        width:100%;
-        height:30px;
-        text-align: center;
-        line-height: 5em;
-        background-color: transparent;
-
-      }
-
-
-      a{
-
-        color: white;
-        text-decoration: none;
-        font-size: 30px;
-        padding: 20px;
-        transition: all 0.3s ease;
-      }
-      a:hover{
-        color: green;
-        font-size: 30px;
-        text-shadow: 0 0 30px green;
-      }
-      #top-bar #link1{
-        position: absolute;
-        right: 20px;
-        top: -20px;
-      }
-      #top-bar #link2{
-        position: absolute;
-        right: 150px;
-        top: -20px;
-      }
-      body {
-          margin: 0;
-          overflow: hidden;
-          background-color: white;
-      }
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 
 </head>
 <body>
+
   <div id="top-bar">
     <a href="https://github.com/brammelam" id="link1">GitHub</a>
     <a href="https://linkedin.com/in/bramvanoostrum" id="link2">LinkedIn</a>
@@ -78,7 +21,7 @@
 
     <a href="index.html">Home</a><br>
     <a href="https://brammelam.github.io/tiny-racers-web">Tiny Racer</a><br>
-    <a href="https://brammelam.github.io/index2.html">Example 2</a>
+    <a href="main.py">Bussruta</a>
   </p>
   </div>
   <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
@@ -92,6 +35,37 @@
     }
   </script>
 
+  <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
+  <script src="https://mediafiles.botpress.cloud/c67e4252-0ccc-4c57-ba96-c84e360324d8/webchat/config.js" defer></script>
+  <script>
+		// Initialize the chatbot after the scripts have been fetched
+		window.addEventListener("load", function() {
+			const options = {
+				botId: "your-bot-id",
+				botName: "Your Bot Name",
+				welcomeMsg: "Welcome to the chatbot!",
+				host: "https://your-botpress-host.com",
+				container: "#webchat"
+			};
+      options.stylesheet = "./styles.css"
+			window.botpressWebChat.init(options);
+		});
+	</script>
+  <style>
+  .bpw-floating-button {
+    fill: rgb(255, 255, 255);
+  }
+
+  .bpw-header-icon svg,
+
+  .bpw-header-icon svg path {
+
+    /* Set fill color to a variable named shark */
+
+    fill: url("./boticon.png");
+  }
+
+  </style>
     <script type = "module">
       import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
@@ -270,7 +244,7 @@
       fontloader.load( 'https://cdn.jsdelivr.net/npm/three@0.119.1/examples/fonts/helvetiker_regular.typeface.json', function ( font ) {
         var textGeometry = new THREE.TextGeometry( "Velkommen", {
             font: font,
-            size: 350,
+            size: 400,
             height: 20
         } );
         var textMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, shading: THREE.SmoothShading });
