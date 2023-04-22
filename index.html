@@ -2,28 +2,23 @@
 <html>
 <head>
     <title>Borm server</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <style>
-    @media screen and (max-width: 1918px) {
-      #container{
-        width: 100px;
-        flex-direction: column;
-      }
-      body {
-        font-size: 14px;
-      }
+    @media screen and (max-width: 767px) {
+      /* Styles for screens with a maximum width of 767px (i.e. mobile devices) */
       a {
-        font-size: 12px;
+        font-size: 16px;
+        line-height: 1.5;
       }
-      a:hover {
-        font-size: 14px;
+      #container {
+        width: 30%;
       }
     }
+
+
 
 </style>
 </head>
@@ -39,16 +34,99 @@
     <a href="https://brammelam.github.io/tiny-racers-web">Tiny Racer</a><br>
     <a href="main.py">Bussruta</a>
   </p>
-  </div>
-  <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+</div>
 
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.121.1/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.121.1/examples/jsm/"
+  <script type = "module">
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        // set up scene and camera
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color( 0x000000 );
+        var camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
+        camera.position.z = 50;
+        // create a renderer
+        var renderer = new THREE.WebGLRenderer({ antialias: true });
+        // set the size of the renderer and add it to the DOM
+        //renderer.setPixelRatio(scale);
+        renderer.setSize(width, height);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        document.body.appendChild(renderer.domElement);
+        const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
+         hemiLight.position.set( 0, 0, 200 );
+         scene.add( hemiLight );
+         const dirLight = new THREE.DirectionalLight( 0xffffff );
+         dirLight.position.set( 0, 0,0 );
+         dirLight.castShadow = true;
+         dirLight.shadow.camera.top = 180;
+         dirLight.shadow.camera.bottom = - 100;
+         dirLight.shadow.camera.left = - 120;
+         dirLight.shadow.camera.right = 120;
+         //scene.add( dirLight );
+
+
+         // Get the WebGL canvas element
+         const canvas = renderer.domElement;
+         // Set up touch event listeners
+         let startY, endY;
+         canvas.addEventListener('touchstart', (event) => {
+           startY = event.touches[0].clientY;
+         });
+         canvas.addEventListener('touchmove', (event) => {
+           endY = event.touches[0].clientY;
+         });
+         canvas.addEventListener('touchend', () => {
+           // Check if the user has pulled down at least 100px
+           if (endY - startY > 100) {
+             // Reload the page to trigger a refresh
+             location.reload();
+           }
+         });
+         // Add a listener for the window's resize event
+         window.addEventListener("resize", onWindowResize);
+
+         function onWindowResize() {
+           // Update the renderer's size to match the new window size
+           const width = window.innerWidth;
+           const height = window.innerHeight;
+           renderer.setSize(width, height);
+
+           // Update the camera's aspect ratio to match the new canvas size
+           camera.aspect = canvas.clientWidth / canvas.clientHeight;
+           camera.updateProjectionMatrix();
+         }
+  // create an array to store the dots
+  var dots = [];
+  var dotCount = 100;
+
+  // create the dots and add them to the scene
+  for (var i = 0; i < dotCount; i++) {
+      var size = Math.random() * 0.15;
+      var dotGeometry = new THREE.SphereGeometry(size, 4, 4);
+      var dotMaterial = new THREE.MeshStandardMaterial({color: 0xffffff, flatShading: true});
+      var dot = new THREE.Mesh(dotGeometry, dotMaterial);
+      dot.position.z = Math.random() * 20 - 10;
+      dot.position.x = Math.random() * 70 - 35;
+      dot.position.y = Math.random() * 70 - 35;
+      dot.speed = Math.random() * 0.05;
+      dots.push(dot);
+      scene.add(dot);
+  }
+
+  function update() {
+      for (var i = 0; i < dotCount; i++) {
+          dots[i].position.z += dots[i].speed;
+          if (dots[i].position.z > 100) {
+              dots[i].position.z = -100;
+          }
+        }
       }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      update();
+      renderer.render(scene, camera);
     }
+animate();
   </script>
   <div id="botpress-webchat"></div>
   <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
@@ -63,76 +141,11 @@
         "botConversationDescription": "I know everything",
         "showBotInfoPage": true,
         "containerWidth": "100%25",
-        "layoutWidth": "100%25"
+        "layoutWidth": "100%25",
+        "styleUrl": "https://slimy-jeans-stay-83-108-2-250.loca.lt/styles.css"
     });
+
   </script>
 
-<script>
-      // create an array to store the dots
-      var dots = [];
-      var dotCount = 300;
-
-      // create the dots and add them to the scene
-      for (var i = 0; i < dotCount; i++) {
-
-          var dotGeometry = new THREE.SphereGeometry(0.05, 4, 4);
-          var dotMaterial = new THREE.MeshStandardMaterial({color: 0xffffff,flatShading: true});
-          var dot = new THREE.Mesh(dotGeometry, dotMaterial);
-          dot.position.z = Math.random() * 40 - 20;
-          dot.position.x = Math.random() * 100 - 50;
-          dot.position.y = Math.random() * 100 - 50;
-          dot.speed = Math.random() * 0.05;
-          dots.push(dot);
-          scene.add(dot);
-      }
-
-      // create the text
-      var fontloader = new THREE.FontLoader();
-      var textMesh;
-      fontloader.load( 'https://cdn.jsdelivr.net/npm/three@0.119.1/examples/fonts/helvetiker_regular.typeface.json', function ( font ) {
-        var textGeometry = new THREE.TextGeometry( "Velkommen", {
-            font: font,
-            size: 400,
-            height: 20
-        } );
-        var textMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, shading: THREE.SmoothShading });
-        textMesh = new THREE.Mesh(textGeometry, textMaterial);
-
-        // Position the text mesh where the blue ball used to be
-        textMesh.position.x = -3500;
-        textMesh.position.y = -150;
-        textMesh.position.z = -300;
-        textMesh.rotation.x = Math.PI / 25;
-        textMesh.rotation.y = Math.PI * 4.3;
-        scene.add(textMesh);
-        gsap.to(textMesh.position, {
-          duration: 5,
-          y: textMesh.position.y + 200,
-          x: textMesh.position.x + 200 // rotate by 180° on y-axis,
-          //x: model.rotation.x - Math.PI/4
-        });
-    } );
-
-      function update() {
-          for (var i = 0; i < dotCount; i++) {
-              dots[i].position.z += dots[i].speed;
-              if (dots[i].position.z > 100) {
-                  dots[i].position.z = -100;
-              }
-          }
-      }
-
-      // render the scene
-      function render() {
-        update();
-        requestAnimationFrame(render);
-        controls.update();
-        angle += speed;
-
-        renderer.render(scene, camera);
-      }
-
-      render();
-  </script>
 </body>
 </html>
