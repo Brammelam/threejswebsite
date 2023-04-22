@@ -62,13 +62,14 @@ a{
 
   color: white;
   text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 40px;
   padding: 15px;
   transition: all 0.3s ease;
 }
 a:hover{
-  color: green;
-  text-shadow: 0 0 20px green;
+  color: rgb(81, 249, 255);
+  text-shadow: 0 0 20px rgb(81, 249, 255);
 }
 #top-bar #link1{
   position: absolute;
@@ -77,6 +78,6 @@ a:hover{
 }
 #top-bar #link2{
   position: absolute;
-  right: 130px;
+  right: 170px;
   top: 0px;
 }
