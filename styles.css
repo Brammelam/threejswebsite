@@ -8,26 +8,15 @@ body {
 
 /* use viewport-relative units to cover page fully */
 body {
-
-
   overflow: hidden;
-}
-
-@media only screen and (min-width: 768px) {
-  #container {
-    width: 20%; /* Update the width for larger screens */
-  }
-  a {
-    font-size: 40px;
-  }
 }
 
 #swipe-circle {
   position: fixed;
   top: 30px;
   left: calc(50% - 30px);
-  width: 60px;
-  height: 60px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   z-index: 998;
   display: none;
@@ -71,7 +60,7 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 40px;
+  height: 150px;
   background-color: rgb(7, 25, 47);
   border-top: 1px solid black;
   z-index: 2;
@@ -96,7 +85,7 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 40px;
+  height: 150px;
   background-color: rgb(7, 25, 47);
   border-bottom: 1px solid rgb(3, 12, 22);
   z-index: 2;
@@ -117,8 +106,8 @@ a{
   color: rgb(221, 243, 255);
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  padding: 5px;
+  font-size: 50px;
+  padding: 30px;
   transition: all 0.2s ease;
   font-weight: bold;
 
@@ -128,3 +117,7 @@ a:hover{
 
 }
 
+.bpw-floating-button {
+  width: 150px;
+  height: 150px;
+}
