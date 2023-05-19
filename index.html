@@ -10,38 +10,48 @@
 
   </head>
   <body>
+    <div id="swipe-circle"></div>
     <div id="canvas"></div>
     <script>
       var startY;
-      var refreshMessage = document.getElementById('refresh-message');
       var content = document.getElementById('canvas');
-  
+      var swipeCircle = document.getElementById('swipe-circle');
+
       window.addEventListener('touchstart', function (e) {
-        startY = e.touches[0].clientY;
-        refreshMessage.style.display = 'none';
+      startY = e.touches[0].clientY;
+      content.style.transform = 'translateY(0)';
+      swipeCircle.style.display = 'none';
+    }, { passive: true });
+
+    window.addEventListener('touchmove', function (e) {
+      var currentY = e.touches[0].clientY;
+      var distance = currentY - startY;
+
+      if (distance > 0) {
+        content.style.transform = 'translateY(' + distance + 'px)';
+        swipeCircle.style.display = 'block';
+
+        var fillPercentage = Math.max(0, Math.min(distance, 100));
+        var bluePercentage = (fillPercentage / 100) * 100;
+        var whitePercentage = 100 - bluePercentage;
+        swipeCircle.style.backgroundImage = 'linear-gradient(to top, white ' + whitePercentage + '%, blue ' + bluePercentage + '%)';
+      } else {
+        swipeCircle.style.display = 'none';
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', function (e) {
+      var currentY = e.changedTouches[0].clientY;
+      var distance = currentY - startY;
+
+      if (distance > 100) {
+        swipeCircle.style.display = 'none';
+        location.reload();
+      } else {
         content.style.transform = 'translateY(0)';
-      }, { passive: true });
-  
-      window.addEventListener('touchmove', function (e) {
-        var currentY = e.touches[0].clientY;
-        var distance = currentY - startY;
-  
-        if (distance > 50) {
-          refreshMessage.style.display = 'block';
-          content.style.transform = 'translateY(' + distance + 'px)';
-        }
-      }, { passive: true });
-  
-      window.addEventListener('touchend', function (e) {
-        var currentY = e.changedTouches[0].clientY;
-        var distance = currentY - startY;
-  
-        if (distance > 100) {
-          location.reload();
-        } else {
-          content.style.transform = 'translateY(0)';
-        }
-      }, { passive: true });
+        swipeCircle.style.display = 'none';
+      }
+    }, { passive: true });
     </script>
     <script>
       VANTA.BIRDS({
