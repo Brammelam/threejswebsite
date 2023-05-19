@@ -10,17 +10,21 @@
 
   </head>
   <body>
-    <div id="swipe-circle"></div>
+    <div id="swipe-circle">
+      <div id="loading-bar"></div>
+    </div>
     <div id="canvas"></div>
     <script>
       var startY;
       var content = document.getElementById('canvas');
       var swipeCircle = document.getElementById('swipe-circle');
+      var loadingBar = document.getElementById('loading-bar');
 
-      window.addEventListener('touchstart', function (e) {
+    window.addEventListener('touchstart', function (e) {
       startY = e.touches[0].clientY;
       content.style.transform = 'translateY(0)';
       swipeCircle.style.display = 'none';
+      swipeCircle.classList.remove('complete');
     }, { passive: true });
 
     window.addEventListener('touchmove', function (e) {
@@ -32,9 +36,13 @@
         swipeCircle.style.display = 'block';
 
         var fillPercentage = Math.max(0, Math.min(distance, 100));
-        var bluePercentage = (fillPercentage / 100) * 100;
-        var whitePercentage = 100 - bluePercentage;
-        swipeCircle.style.backgroundImage = 'linear-gradient(to top, white ' + whitePercentage + '%, blue ' + bluePercentage + '%)';
+        loadingBar.style.transform = 'scaleY(' + (fillPercentage / 100) + ')';
+        
+        if (distance >= 100) {
+          swipeCircle.classList.add('complete');
+        } else {
+          swipeCircle.classList.remove('complete');
+        }
       } else {
         swipeCircle.style.display = 'none';
       }
@@ -58,7 +66,7 @@
         el: "#canvas",
         mouseControls: true,
         touchControls: true,
-        gyroControls: false,
+        gyroControls: true,
         minHeight: 200.00,
         minWidth: 200.00,
         scale: 1.00,
