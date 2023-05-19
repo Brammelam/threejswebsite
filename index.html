@@ -32,11 +32,15 @@
       var distance = currentY - startY;
 
       if (distance > 0) {
-        content.style.transform = 'translateY(' + distance + 'px)';
-        swipeCircle.style.display = 'block';
 
-        var fillPercentage = Math.max(0, Math.min(distance, 100));
-        loadingBar.style.height = fillPercentage + '%';
+        content.style.transform = 'translateY(' + distance + 'px)';
+
+          swipeCircle.style.display = 'block';          
+          var fillPercentage = Math.max(0, Math.min(distance, 100));
+          loadingBar.style.height = fillPercentage + '%';
+          swipeCircle.style.opacity = fillPercentage * 2 + '%';
+
+
 
         if (distance >= 100) {
           swipeCircle.classList.add('complete');
@@ -104,9 +108,7 @@
         botName: "CleverBot",
         avatarUrl: "https://i.imgur.com/dR1ZDMK.png",
         botConversationDescription: "I know everything",
-        showBotInfoPage: true,
-        containerWidth: "100%50",
-        layoutWidth: "100%50",
+        showBotInfoPage: false,
       });
     </script>
   </body>
