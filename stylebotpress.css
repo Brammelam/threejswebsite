@@ -1,6 +1,6 @@
 .bpw-floating-button {
   /* Aligns the button to the right side of the container */
-  float: right;
+  float: center;
   /* Sets the fill color of the button icon */
   fill: rgb(0, 255, 94);
   /* Changes the cursor to a pointer when hovering over the button */
@@ -28,10 +28,16 @@
   overflow: hidden;
 
   /* Removes padding and borders from the button */
-  padding: 0;
+  padding: 30px;
   border: none;
   background-clip: padding-box;
 
   /* Adds a transition effect to the button when its size changes */
   transition: width 1s, height 1s;
+}
+
+.bpw-header-icon:hover,
+.bpw-header-icon:hover svg,
+.bpw-header-icon:hover svg path {
+fill: #113c72;
 }
