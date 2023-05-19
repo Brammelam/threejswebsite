@@ -34,7 +34,7 @@ body {
   pointer-events: none;
   box-sizing: border-box;
   border: 2px solid white;
-  background-color: #b3b3ff;
+  background-color: white;
   overflow: hidden;
 }
 
