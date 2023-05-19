@@ -16,8 +16,8 @@
   /* Sets the z-index to ensure the button is on top of other elements */
   z-index: 1;
   /* Sets the width and height of the button */
-  width: 150px;
-  height: 150px;
+  width: 52px;
+  height: 52px;
   /* Changes the cursor to a pointer when hovering over the button */
   cursor: pointer;
   /* Rounds the corners of the button */
@@ -28,16 +28,10 @@
   overflow: hidden;
 
   /* Removes padding and borders from the button */
-  padding: 30px;
+  padding: 0;
   border: none;
   background-clip: padding-box;
 
   /* Adds a transition effect to the button when its size changes */
   transition: width 1s, height 1s;
-}
-
-.bpw-header-icon:hover,
-.bpw-header-icon:hover svg,
-.bpw-header-icon:hover svg path {
-fill: #113c72;
 }
