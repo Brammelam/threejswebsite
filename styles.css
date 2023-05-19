@@ -24,7 +24,7 @@ body {
 
 #swipe-circle {
   position: fixed;
-  top: 20px;
+  top: 30px;
   left: calc(50% - 30px);
   width: 60px;
   height: 60px;
@@ -45,11 +45,13 @@ body {
   width: 100%;
   height: 0;
   background-color: white;
-  transition: height 0.3s ease-in-out;
+  
 }
 
 #swipe-circle.complete #loading-bar {
   height: 100%;
+  background-color: #113c72 ;
+  transition: background-color 0.3s ease-in-out;
 }
 
 #canvas {
