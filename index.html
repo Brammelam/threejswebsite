@@ -14,10 +14,12 @@
     <script>
       var startY;
       var refreshMessage = document.getElementById('refresh-message');
+      var content = document.getElementById('content');
   
       window.addEventListener('touchstart', function (e) {
         startY = e.touches[0].clientY;
         refreshMessage.style.display = 'none';
+        content.style.transform = 'translateY(0)';
       }, { passive: true });
   
       window.addEventListener('touchmove', function (e) {
@@ -26,6 +28,7 @@
   
         if (distance > 50) {
           refreshMessage.style.display = 'block';
+          content.style.transform = 'translateY(' + distance + 'px)';
         }
       }, { passive: true });
   
@@ -35,6 +38,8 @@
   
         if (distance > 100) {
           location.reload();
+        } else {
+          content.style.transform = 'translateY(0)';
         }
       }, { passive: true });
     </script>
