@@ -40,11 +40,11 @@
       if (distance > 0) {
         swipeCircle.style.display = 'block';  
         content.style.transform = 'translateY(' + distance + 'px)';   
-        var fillPercentage = Math.max(0, Math.min(distance, 150));
+        var fillPercentage = Math.max(0, Math.min(distance, 100));
         loadingBar.style.height = fillPercentage + '%';
         swipeCircle.style.opacity = fillPercentage * 2 + '%';
 
-        if (distance >= 150) {
+        if (distance >= 100) {
           swipeCircle.classList.add('complete');
         } else {
           swipeCircle.classList.remove('complete');
@@ -58,7 +58,7 @@
       var currentY = e.changedTouches[0].clientY;
       var distance = currentY - startY;
 
-      if (distance > 150) {
+      if (distance > 100) {
         swipeCircle.style.display = 'none';
         location.reload();
       } else {
@@ -73,10 +73,10 @@
         mouseControls: true,
         touchControls: true,
         gyroControls: false,
-        minHeight: 200.00,
+        minHeight: 600.00,
         minWidth: 200.00,
         scale: 1.00,
-        scaleMobile: 1.00,
+        scaleMobile: 1.50,
         color1: 0xb3ff,
         color2: 0xff00e0,
         birdSize: 1.30,
