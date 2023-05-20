@@ -15,3 +15,12 @@
 .bpw-layout::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
+
+.bpw-header-container {
+  /* sets the border radius of the element */
+  border-radius: var(--spacing-large);
+  /* sets the border of the element */
+  border: 2px solid var(--zinc-200);
+  /* sets the padding of the element */
+  padding: var(--spacing-x-large);
+}
