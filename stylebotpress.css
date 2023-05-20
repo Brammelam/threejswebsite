@@ -22,5 +22,5 @@
   /* sets the border of the element */
   border: 2px solid var(--zinc-200);
   /* sets the padding of the element */
-  padding: var(--spacing-x-large);
+  padding: 50px 50px;
 }
