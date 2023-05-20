@@ -4,15 +4,17 @@ body {
   padding: 0;
   transition: transform 0.3s ease-in-out;
   transform-origin: top;
+  width: 100%;
 }
 
 body {
-  overflow: hidden;
+  overflow: visible;
+  overscroll-behavior-y: contain;
 }
 
 #swipe-circle {
   position: fixed;
-  top: 30px;
+  top: 50px;
   left: calc(50% - 30px);
   width: 52px;
   height: 52px;
@@ -31,7 +33,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 0;
+  height: 30px;
   background-color: #b3b3ff;
 }
 
@@ -43,11 +45,26 @@ body {
 
 #canvas {
   position: fixed;
-  top: 40px;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
+  transform: scale(1);
+
+
+}
+
+#back-bar {
+  top: 0;
+  left: 0;
+  background-color: #113c72 ;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 150px;
 }
 
 * {
@@ -57,7 +74,7 @@ body {
 #container {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: left;
   height: 50px;
   background-color: rgb(7, 25, 47);
   border-top: 1px solid black;

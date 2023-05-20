@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Borm server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.3">
+    <link rel="stylesheet" href="styles.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
+
+  </head>
+  <body>
+  <div id="back-bar">
+    <a href="index.html" id="first">_BACK</a>
+
+  </div>
+  <div id="botpress-webchat"></div>
+  <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
+  <script>
+      window.botpressWebChat.init({
+
+        botId: "c67e4252-0ccc-4c57-ba96-c84e360324d8",
+        hostUrl: "https://cdn.botpress.cloud/webchat/v0",
+        messagingUrl: "https://messaging.botpress.cloud",
+        clientId: "c67e4252-0ccc-4c57-ba96-c84e360324d8",
+        botName: "CleverBot",
+        avatarUrl: "https://i.imgur.com/dR1ZDMK.png",
+        botConversationDescription: "I know everything",
+  
+        // Set the width of the WebChat container and layout to 100% (Full Screen)
+        containerWidth: "100%25",
+        layoutWidth: "100%25",
+
+        // Hide the widget and disable animations
+        hideWidget: true,
+        disableAnimations: true,
+      });
+
+          // Opens up the Chatbot by default
+    // This lets users start chatting with the Chatbot without needing to click any buttons or menus.
+    window.botpressWebChat.onEvent(
+        function () {
+            window.botpressWebChat.sendEvent({ type: "show" });
+        },
+        ["LIFECYCLE.LOADED"]
+    );
+  
+
+  </script>
+
+  </body>
+</html>
