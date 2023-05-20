@@ -3,7 +3,7 @@
   <head>
     <title>Borm server</title>
     <link rel="stylesheet" href="styles.css" />
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
@@ -28,19 +28,16 @@
     }, { passive: true });
 
     window.addEventListener('touchmove', function (e) {
+      e.preventDefault();
       var currentY = e.touches[0].clientY;
       var distance = currentY - startY;
 
       if (distance > 0) {
-
         content.style.transform = 'translateY(' + distance + 'px)';
-
-          swipeCircle.style.display = 'block';          
-          var fillPercentage = Math.max(0, Math.min(distance, 100));
-          loadingBar.style.height = fillPercentage + '%';
-          swipeCircle.style.opacity = fillPercentage * 2 + '%';
-
-
+        swipeCircle.style.display = 'block';          
+        var fillPercentage = Math.max(0, Math.min(distance, 100));
+        loadingBar.style.height = fillPercentage + '%';
+        swipeCircle.style.opacity = fillPercentage * 2 + '%';
 
         if (distance >= 100) {
           swipeCircle.classList.add('complete');
@@ -106,8 +103,7 @@
         botConversationDescription: "I know everything",
         showBotInfoPage: false,
         containerWidth: 100%25,
-        layoutWidth: 100%25,
-        showTimestamp: true       
+        layoutWidth: 100%25     
       });
     </script>
 
@@ -115,8 +111,6 @@
       <a href="https://brammelam.github.io/tiny-racers-web" id="first-link">_TINY RACER</a>
       <a href="main.py" id="second-link">_BUSS</a>
     </div>
-    
-
 
   </body>
 </html>
