@@ -11,13 +11,37 @@
 
   </head>
   <body>
+  <div id="loading">Loading...</div>  
   <div id="back-bar">
-    <a href="index.html" id="first">_BACK</a>
+    
+    Start chatting:<br>        
+    <button id="chat-button">_CHAT</button>    
+    <a href="index.html" id="back-button">_RETURN TO MAIN</a>
 
   </div>
   <div id="botpress-webchat"></div>
+  
   <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
   <script>
+    // Get a reference to the delayed div
+    var delayedDiv = document.getElementById("back-bar");
+    var loadingDiv = document.getElementById("loading");
+
+    // Hide the div initially
+    delayedDiv.style.display = "none";
+
+    // Delay in milliseconds before showing the div (e.g., 2000 for a 2-second delay)
+    var delayDuration = 2000;
+
+    // Function to show the div after the delay
+    function showDelayedDiv() {
+      delayedDiv.style.display = "flex";
+      loadingDiv.style.display = "none";
+    }
+
+    // Call the showDelayedDiv function after the specified delay duration
+    setTimeout(showDelayedDiv, delayDuration);
+
       window.botpressWebChat.init({
         stylesheet: "https://brammelam.github.io/stylebotpress.css",
         botId: "c67e4252-0ccc-4c57-ba96-c84e360324d8",
@@ -27,7 +51,8 @@
         botName: "CleverBot",
         avatarUrl: "https://i.imgur.com/dR1ZDMK.png",
         botConversationDescription: "I know everything",
-  
+        enableTranscriptDownload: false,
+
         // Set the width of the WebChat container and layout to 100% (Full Screen)
         containerWidth: "100%25",
         layoutWidth: "100%25",
@@ -37,7 +62,7 @@
         disableAnimations: true,
       });
 
-          // Opens up the Chatbot by default
+    // Opens up the Chatbot by default
     // This lets users start chatting with the Chatbot without needing to click any buttons or menus.
     window.botpressWebChat.onEvent(
         function () {
@@ -45,9 +70,12 @@
         },
         ["LIFECYCLE.LOADED"]
     );
-  
+    
+    // Open chat by pressing button
+    document.getElementById("chat-button").addEventListener("click", function() {
+    window.botpressWebChat.sendEvent({ type: "show" });
+    });
 
   </script>
-
   </body>
 </html>
