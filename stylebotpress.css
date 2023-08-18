@@ -1,4 +1,4 @@
-:root {
+:root{
   --main-color: blue;
 }
 
@@ -6,21 +6,11 @@
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
   overflow-y: scroll; 
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0; /* Remove min-width to allow scaling on smaller screens */
+  height: 100vh;
+  width: 100vw;
+  
 }
 
 .bpw-layout::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
-}
-
-.bpw-header-container {
-  /* sets the border radius of the element */
-  border-radius: var(--spacing-large);
-  /* sets the border of the element */
-  border: 2px solid var(--zinc-200);
-  /* sets the padding of the element */
-  padding: 50px 50px;
 }

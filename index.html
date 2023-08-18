@@ -4,7 +4,7 @@
     <title>Borm server</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css" />
-    
+
     <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
@@ -36,10 +36,10 @@
     window.addEventListener('touchmove', function (e) {
       var currentY = e.touches[0].clientY;
       var distance = currentY - startY;
-      
+
       if (distance > 0) {
-        swipeCircle.style.display = 'block';  
-        content.style.transform = 'translateY(' + distance + 'px)';   
+        swipeCircle.style.display = 'block';
+        content.style.transform = 'translateY(' + distance + 'px)';
         var fillPercentage = Math.max(0, Math.min(distance, 100));
         loadingBar.style.height = fillPercentage + '%';
         swipeCircle.style.opacity = fillPercentage * 2 + '%';
@@ -94,9 +94,10 @@
       <a href="https://github.com/brammelam" id="third">_GITHUB</a>
     </div>
 
-    <div id="container"> 
+    <div id="container">
       <a href="https://brammelam.github.io/tiny-racers-web" id="first-link">_TINY RACER</a>
-      <a href="botpress.html" id="second-link">_CLEVERBOT</a>
+      <a href="https://brammelam.github.io/bastet" id="second-link">_BASTET</a>
+      <a href="botpress.html" id="third-link">_CLEVERBOT</a>
     </div>
 
   </body>
