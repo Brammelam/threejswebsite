@@ -1,73 +1,88 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Borm server</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css" />
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borm Server</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
-
-  </head>
-  <body>
-    <div id="swipe-circle">
-      <div id="loading-bar"></div>
-    </div>
-    <div id="canvas"></div>
+</head>
+<body>
+    <header id="top-bar">
+        <a href="index.html" id="first">_HOME</a>
+        <a href="https://linkedin.com/in/bramvanoostrum" id="second">_LINKEDIN</a>
+        <a href="https://github.com/brammelam" id="third">_GITHUB</a>
+        <a href="https://feastapp20240507231936.azurewebsites.net/" id="fourth">_FEAST</a>
+    </header>
+    <main>
+        <div id="canvas"></div>
+        <div id="swipe-circle">
+            <div id="loading-bar"></div>
+        </div>
+        <section id="container">
+            <a href="https://brammelam.github.io/tiny-racers-web" class="game-link">_TINY RACER</a>
+            <a href="https://brammelam.github.io/bastet" class="game-link">_BASTET</a>
+            <a href="https://brammelam.github.io/Oko" class="game-link">_GUN FARM</a>
+            <a href="https://brammelam.github.io/MonkeTrain" class="game-link">_MONKE TRAIN</a>
+            <a href="https://brammelam.github.io/Stronk" class="game-link">_STRONK</a>
+            <a href="botpress.html" class="bot-link">_CLEVERBOT</a>
+        </section>
+    </main>
     <script>
+      // Swipe functionality and loading bar animation
       var startY;
       var content = document.getElementById('canvas');
       var swipeCircle = document.getElementById('swipe-circle');
       var loadingBar = document.getElementById('loading-bar');
 
-      // Disable default pull-to-refresh behavior
       document.addEventListener('touchmove', function (e) {
         e.preventDefault();
       }, { passive: false });
 
       window.addEventListener('touchstart', function (e) {
-      startY = e.touches[0].clientY;
-      content.style.transform = 'translateY(0)';
-      swipeCircle.style.display = 'none';
-      swipeCircle.classList.remove('complete');
-    }, { passive: true });
-
-    window.addEventListener('touchmove', function (e) {
-      var currentY = e.touches[0].clientY;
-      var distance = currentY - startY;
-
-      if (distance > 0) {
-        swipeCircle.style.display = 'block';
-        content.style.transform = 'translateY(' + distance + 'px)';
-        var fillPercentage = Math.max(0, Math.min(distance, 100));
-        loadingBar.style.height = fillPercentage + '%';
-        swipeCircle.style.opacity = fillPercentage * 2 + '%';
-
-        if (distance >= 100) {
-          swipeCircle.classList.add('complete');
-        } else {
-          swipeCircle.classList.remove('complete');
-        }
-        } else {
-        swipeCircle.style.display = 'none';
-        }
-        }, { passive: true });
-
-    window.addEventListener('touchend', function (e) {
-      var currentY = e.changedTouches[0].clientY;
-      var distance = currentY - startY;
-
-      if (distance > 100) {
-        swipeCircle.style.display = 'none';
-        location.reload();
-      } else {
+        startY = e.touches[0].clientY;
         content.style.transform = 'translateY(0)';
         swipeCircle.style.display = 'none';
-      }
-    }, { passive: true });
-    </script>
-    <script>
+        swipeCircle.classList.remove('complete');
+      }, { passive: true });
+
+      window.addEventListener('touchmove', function (e) {
+        var currentY = e.touches[0].clientY;
+        var distance = currentY - startY;
+
+        if (distance > 0) {
+          swipeCircle.style.display = 'block';
+          content.style.transform = 'translateY(' + distance + 'px)';
+          var fillPercentage = Math.max(0, Math.min(distance, 100));
+          loadingBar.style.height = fillPercentage + '%';
+          swipeCircle.style.opacity = fillPercentage * 2 + '%';
+
+          if (distance >= 100) {
+            swipeCircle.classList.add('complete');
+          } else {
+            swipeCircle.classList.remove('complete');
+          }
+        } else {
+          swipeCircle.style.display = 'none';
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', function (e) {
+        var currentY = e.changedTouches[0].clientY;
+        var distance = currentY - startY;
+
+        if (distance > 100) {
+          swipeCircle.style.display = 'none';
+          location.reload();
+        } else {
+          content.style.transform = 'translateY(0)';
+          swipeCircle.style.display = 'none';
+        }
+      }, { passive: true });
+
+      // Vanta.js background effect
       VANTA.BIRDS({
         el: "#canvas",
         mouseControls: true,
@@ -81,27 +96,11 @@
         color2: 0xff00e0,
         birdSize: 1.30,
         wingSpan: 38.00,
-        speedLimit: 2.00,
+        speedLimit: 1.00,
         separation: 60.00,
         cohesion: 8.00,
         quantity: 4.00
-      })
-      </script>
-
-    <div id="top-bar">
-      <a href="index.html" id="first">_HOME</a>
-      <a href="https://linkedin.com/in/bramvanoostrum" id="second">_LINKEDIN</a>
-      <a href="https://github.com/brammelam" id="third">_GITHUB</a>
-    </div>
-
-    <div id="container">
-      <a href="https://brammelam.github.io/tiny-racers-web" id="first-link">_TINY RACER</a>
-      <a href="https://brammelam.github.io/bastet" id="second-link">_BASTET</a>
-      <a href="https://brammelam.github.io/Oko" id="second-link">_GUN FARM</a>
-      <a href="https://brammelam.github.io/MonkeTrain" id="second-link">_MONKE TRAIN</a>
-      <a href="https://brammelam.github.io/Stronk" id="second-link">_STRONK</a>
-      <a href="botpress.html" id="third-link">_CLEVERBOT</a>
-    </div>
-
-  </body>
+      });
+    </script>
+</body>
 </html>
